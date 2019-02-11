@@ -1,27 +1,17 @@
-import Layout from '../components/Layout'
-import Link from 'next/link';
+import MyLayout from '../components/MyLayout'
+import StoreList from '../components/StoreList';
 import fetch from 'isomorphic-unfetch'
 
 const Store = (props) => (
-    <Layout>
-        <ul>
-            {props.stores.map(store => (
-                <li key={store.id}>
-                    <Link href={`/store?id=${store.id}`}>
-                        <a>{store.name}</a>
-                    </Link>
-                </li>
-                )
-            )}
-        </ul>
-    </Layout>
+    <MyLayout>
+        <h1 style={{ textAlign: 'center' , paddingBottom : 30, fontFamily: 'Pacifico' }}>STORE LIST</h1>
+        <StoreList stores={props.stores}/>
+    </MyLayout>
 )
 
 Store.getInitialProps = async function() {
     const res = await fetch('http://localhost:9000/stores')
     const data = await res.json()
-
-    console.log(data)
     
     return {
         stores: data

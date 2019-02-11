@@ -1,4 +1,6 @@
 import React from 'react'
+import Router from 'next/router'
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
 
 export default class Error extends React.Component {
     static async getInitialProps({ res, err }) {
@@ -6,13 +8,17 @@ export default class Error extends React.Component {
         return { statusCode }
     }
 
+    componentDidMount() {
+        setTimeout(() => {
+            Router.push('/')
+        }, 5000)
+    }
+
     render() {
         return (
-            <p>
-                {this.props.statusCode
-                ? `An error ${this.props.statusCode} occurred on server`
-                : 'An error occurred on client'}   
-            </p>
+            <Dimmer active inverted>
+                <Loader size='large'>잠시후에 Main 페이지로 이동합니다.</Loader>
+            </Dimmer>
         )
     }
 }
